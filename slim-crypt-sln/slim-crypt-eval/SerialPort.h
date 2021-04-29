@@ -3,6 +3,8 @@
 #include <Windows.h>
 #include <string>
 #include <vector>
+#include <functional>
+#include <thread>
 
 enum class Baudrate {
 	SP_110 = CBR_110,
@@ -34,15 +36,13 @@ enum class Frame {
 class SerialPort {
 private:
 	HANDLE hCOMPort;
-	unsigned long SerialRead(char* buffer, const size_t num);
-	unsigned long SerialWrite(const char* buffer, const size_t num);
 
 public:
 	SerialPort(std::string portName, Baudrate baudrate, Frame frameFormat);
 
-	/* Raw bytes operations */
-	void Read(char* buffer, const size_t len);
-	void Write(const char* data, const size_t len);
+	/* Raw bytes operations - blocking! */
+	unsigned long Read(char* buffer, const size_t len);
+	unsigned long Write(const char* buffer, const size_t len);
 
 	~SerialPort();
 	static std::vector<std::string> getAvaliablePorts();

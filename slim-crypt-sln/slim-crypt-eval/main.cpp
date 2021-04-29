@@ -7,18 +7,7 @@ int main(int argc, char* argv[]) {
 	if (avaliablePorts.size() < 2) return 0;
 
 	try {
-		SerialPort port(avaliablePorts[0], Baudrate::SP_9600, Frame::SP_8N1);
-
-		while (true) {
-			char inBuffer[100] = { 0 };
-			std::cin >> inBuffer;
-			port.Write(inBuffer, strlen(inBuffer));
-
-			char outBuffer[100] = { 0 };
-			port.Read(outBuffer, 100);
-			std::cout << outBuffer << std::endl;
-		}
-
+		SerialPort port(avaliablePorts[0], Baudrate::SP_19200, Frame::SP_8N1);
 	}
 	catch (const std::exception&) {
 		std::cout << "Unable to open COM port";
