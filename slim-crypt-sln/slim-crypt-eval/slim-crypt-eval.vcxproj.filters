@@ -20,6 +20,15 @@
     <ClCompile Include="..\..\..\slim-crypt-library\src\blowfish\data\blowfish_data.c">
       <Filter>encryption\blowfish\data</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\slim-crypt-library\src\tea\tea.c">
+      <Filter>encryption\tea</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\slim-crypt-library\src\sha1\sha1.c">
+      <Filter>encryption\sha1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\slim-crypt-library\src\sha1\data\sha1_data.c">
+      <Filter>encryption\sha1\data</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="encryption">
@@ -46,6 +55,12 @@
     <Filter Include="encryption\blowfish\data">
       <UniqueIdentifier>{b4d559f1-b4c7-4322-a3df-aa6c804af1c0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="encryption\sha1">
+      <UniqueIdentifier>{5ec183bc-e121-4ac6-874b-e86422ceca28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="encryption\sha1\data">
+      <UniqueIdentifier>{b5120dde-cc21-46f7-83db-ce985f287e52}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\slim-crypt-library\src\aes\aes.h">
@@ -65,6 +80,15 @@
     </ClInclude>
     <ClInclude Include="..\..\..\slim-crypt-library\src\blowfish\data\blowfish_data.h">
       <Filter>encryption\blowfish\data</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\slim-crypt-library\src\tea\tea.h">
+      <Filter>encryption\tea</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\slim-crypt-library\src\sha1\sha1.h">
+      <Filter>encryption\sha1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\slim-crypt-library\src\sha1\data\sha1_data.h">
+      <Filter>encryption\sha1\data</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
