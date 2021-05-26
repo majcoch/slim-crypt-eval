@@ -1,22 +1,70 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="..\..\..\slim-crypt-library\src\aes\aes.c">
+      <Filter>encryption\aes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\slim-crypt-library\src\aes\data\aes_data.c">
+      <Filter>encryption\aes\data</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\slim-crypt-library\src\des\des.c">
+      <Filter>encryption\des</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\slim-crypt-library\src\des\data\des_data.c">
+      <Filter>encryption\des\data</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\slim-crypt-library\src\blowfish\blowfish.c">
+      <Filter>encryption\blowfish</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\slim-crypt-library\src\blowfish\data\blowfish_data.c">
+      <Filter>encryption\blowfish\data</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="encryption">
+      <UniqueIdentifier>{66ad64a7-a2e5-40f0-9bad-a7e250f03c7d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    <Filter Include="encryption\aes">
+      <UniqueIdentifier>{007a62ce-ed28-46df-85ec-5979dfaf0b13}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="encryption\des">
+      <UniqueIdentifier>{7bece4cf-5ddf-46b1-b026-74bc48dfb7b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="encryption\tea">
+      <UniqueIdentifier>{a4d14fe6-3181-4747-8c75-6f5383e4cb51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="encryption\blowfish">
+      <UniqueIdentifier>{2810ccb2-8d78-4ed9-a7db-1f6b36a7f622}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="encryption\aes\data">
+      <UniqueIdentifier>{96cb1c53-73b4-46ce-a7a4-b6e5137879f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="encryption\des\data">
+      <UniqueIdentifier>{7e0b02d4-2af5-4b53-82c8-14f9b29d016c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="encryption\blowfish\data">
+      <UniqueIdentifier>{b4d559f1-b4c7-4322-a3df-aa6c804af1c0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+    <ClInclude Include="..\..\..\slim-crypt-library\src\aes\aes.h">
+      <Filter>encryption\aes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\slim-crypt-library\src\aes\data\aes_data.h">
+      <Filter>encryption\aes\data</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\slim-crypt-library\src\des\des.h">
+      <Filter>encryption\des</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\slim-crypt-library\src\des\data\des_data.h">
+      <Filter>encryption\des\data</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\slim-crypt-library\src\blowfish\blowfish.h">
+      <Filter>encryption\blowfish</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\slim-crypt-library\src\blowfish\data\blowfish_data.h">
+      <Filter>encryption\blowfish\data</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

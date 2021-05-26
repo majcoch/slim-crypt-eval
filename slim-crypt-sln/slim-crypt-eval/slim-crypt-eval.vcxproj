@@ -139,7 +139,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\slim-crypt-library\src\aes\aes.c" />
+    <ClCompile Include="..\..\..\slim-crypt-library\src\aes\data\aes_data.c" />
+    <ClCompile Include="..\..\..\slim-crypt-library\src\blowfish\blowfish.c" />
+    <ClCompile Include="..\..\..\slim-crypt-library\src\blowfish\data\blowfish_data.c" />
+    <ClCompile Include="..\..\..\slim-crypt-library\src\des\data\des_data.c" />
+    <ClCompile Include="..\..\..\slim-crypt-library\src\des\des.c" />
     <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\slim-crypt-library\src\aes\aes.h" />
+    <ClInclude Include="..\..\..\slim-crypt-library\src\aes\data\aes_data.h" />
+    <ClInclude Include="..\..\..\slim-crypt-library\src\blowfish\blowfish.h" />
+    <ClInclude Include="..\..\..\slim-crypt-library\src\blowfish\data\blowfish_data.h" />
+    <ClInclude Include="..\..\..\slim-crypt-library\src\des\data\des_data.h" />
+    <ClInclude Include="..\..\..\slim-crypt-library\src\des\des.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
