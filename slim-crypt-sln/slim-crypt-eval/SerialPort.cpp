@@ -4,10 +4,10 @@
 
 SerialPort::SerialPort(std::string portName, Baudrate baudrate, Frame frameFormat) {
 	hCOMPort = CreateFile(CString(portName.c_str()), GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_EXISTING, 0, NULL);
-	if (hCOMPort == INVALID_HANDLE_VALUE) throw std::exception();
+	if (hCOMPort == INVALID_HANDLE_VALUE) throw PortUnavaliableException();
 
 	DCB	COMPortConfiguration = { 0 };
-	if (!GetCommState(hCOMPort, &COMPortConfiguration)) throw std::exception();
+	if (!GetCommState(hCOMPort, &COMPortConfiguration)) throw PortConfigurationException();
 	COMPortConfiguration.BaudRate = (DWORD)baudrate;
 	COMPortConfiguration.ByteSize = GET_BYTE_SIZE(frameFormat);
 	COMPortConfiguration.StopBits = GET_STOP_BIT(frameFormat);
@@ -16,7 +16,7 @@ SerialPort::SerialPort(std::string portName, Baudrate baudrate, Frame frameForma
 	COMPortConfiguration.fParity = TRUE;
 	COMPortConfiguration.fAbortOnError = TRUE;
 
-	if (!SetCommState(hCOMPort, &COMPortConfiguration)) throw std::exception();
+	if (!SetCommState(hCOMPort, &COMPortConfiguration)) throw PortConfigurationException();
 
 	COMMTIMEOUTS COMPortTimeouts = { 0 };
 	COMPortTimeouts.ReadIntervalTimeout = 1;
@@ -24,7 +24,7 @@ SerialPort::SerialPort(std::string portName, Baudrate baudrate, Frame frameForma
 	COMPortTimeouts.ReadTotalTimeoutMultiplier = 1;
 	COMPortTimeouts.WriteTotalTimeoutConstant = 0;
 	COMPortTimeouts.WriteTotalTimeoutMultiplier = 0;
-	if (!SetCommTimeouts(hCOMPort, &COMPortTimeouts)) throw std::exception();
+	if (!SetCommTimeouts(hCOMPort, &COMPortTimeouts)) throw PortConfigurationException();
 }
 
 unsigned long SerialPort::Read(char* buffer, const size_t len) {
@@ -35,15 +35,10 @@ unsigned long SerialPort::Read(char* buffer, const size_t len) {
 		COMSTAT comStat;
 		ClearCommError(hCOMPort, &dwErrors, &comStat);
 		if (dwErrors & CE_RXPARITY) {
-			std::cout << "CE_RXPARITY" << std::endl;
-			throw std::exception();
+			throw CommunicationParityException();
 		}
 		else if (dwErrors & CE_FRAME) {
-			std::cout << "CE_FRAME" << std::endl;
-			throw std::exception();
-		}
-		else {
-			std::cout << "UNKNOWN ERROR" << std::endl;
+			throw CommunicationFrameException();
 		}
 	}
 
@@ -58,12 +53,10 @@ unsigned long SerialPort::Write(const char* buffer, const size_t len) {
 		COMSTAT comStat;
 		ClearCommError(hCOMPort, &dwErrors, &comStat);
 		if (dwErrors & CE_RXPARITY) {
-			std::cout << "CE_RXPARITY" << std::endl;
-			throw std::exception();
+			throw CommunicationParityException();
 		}
 		if (dwErrors & CE_FRAME) {
-			std::cout << "CE_FRAME" << std::endl;
-			throw std::exception();
+			throw CommunicationFrameException();
 		}
 	}
 

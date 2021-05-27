@@ -18,5 +18,17 @@
     <ClInclude Include="SerialPort.h">
       <Filter>SerialPort</Filter>
     </ClInclude>
+    <ClInclude Include="PortUnavaliableException.h">
+      <Filter>SerialPort\Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="PortConfigurationException.h">
+      <Filter>SerialPort\Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="CommunicationFrameException.h">
+      <Filter>SerialPort\Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="CommunicationParityException.h">
+      <Filter>SerialPort\Exceptions</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

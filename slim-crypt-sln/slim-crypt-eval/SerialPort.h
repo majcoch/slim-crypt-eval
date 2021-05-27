@@ -4,6 +4,11 @@
 #include <string>
 #include <vector>
 
+#include "PortUnavaliableException.h"
+#include "PortConfigurationException.h"
+#include "CommunicationParityException.h"
+#include "CommunicationFrameException.h"
+
 
 #define BYTE_MASK	0b11110000	// 4 - 8
 #define PARI_MASK	0b00001100	// 0 -> None,  1-> Odd,  2 -> Even
@@ -54,4 +59,3 @@ public:
 	~SerialPort();
 	static std::vector<std::string> getAvaliablePorts();
 };
-

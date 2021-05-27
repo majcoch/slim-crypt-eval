@@ -143,6 +143,10 @@
     <ClCompile Include="SerialPort.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CommunicationFrameException.h" />
+    <ClInclude Include="CommunicationParityException.h" />
+    <ClInclude Include="PortConfigurationException.h" />
+    <ClInclude Include="PortUnavaliableException.h" />
     <ClInclude Include="SerialPort.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
