@@ -1,4 +1,5 @@
 #include <iostream>
+#include "SerialPort.h"
 
 #include <aes/aes.h>
 #include <des/des.h>
@@ -8,7 +9,16 @@
 #include <sha1/sha1.h>
 
 int main(int argc, char* argv[]) {
+  
+  std::vector<std::string> avaliablePorts = SerialPort::getAvaliablePorts();
 
+	try {
+		SerialPort port("COM5", Baudrate::SP_19200, Frame::SP_8E2);
+	}
+	catch (const std::exception& ex) {
+		std::cout << ex.what();
+	}
+  
 	uint8_t message[] = "This is a message we will encrypt with AES!";
 
 	/* SH-1 hash example */
