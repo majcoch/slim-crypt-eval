@@ -13,15 +13,15 @@ SerialPort::SerialPort(std::string portName, Baudrate baudrate, Frame frameForma
 	COMPortConfiguration.StopBits = GET_STOP_BIT(frameFormat);
 	COMPortConfiguration.Parity = GET_PARITY_BIT(frameFormat);
 
-	COMPortConfiguration.fParity = TRUE;
-	COMPortConfiguration.fAbortOnError = TRUE;
+	//COMPortConfiguration.fParity = TRUE;
+	//COMPortConfiguration.fAbortOnError = TRUE;
 
 	if (!SetCommState(hCOMPort, &COMPortConfiguration)) throw PortConfigurationException();
 
 	COMMTIMEOUTS COMPortTimeouts = { 0 };
-	COMPortTimeouts.ReadIntervalTimeout = 1;
-	COMPortTimeouts.ReadTotalTimeoutConstant = 1;
-	COMPortTimeouts.ReadTotalTimeoutMultiplier = 1;
+	COMPortTimeouts.ReadIntervalTimeout = 100;
+	COMPortTimeouts.ReadTotalTimeoutConstant = 100;
+	COMPortTimeouts.ReadTotalTimeoutMultiplier = 100;
 	COMPortTimeouts.WriteTotalTimeoutConstant = 0;
 	COMPortTimeouts.WriteTotalTimeoutMultiplier = 0;
 	if (!SetCommTimeouts(hCOMPort, &COMPortTimeouts)) throw PortConfigurationException();

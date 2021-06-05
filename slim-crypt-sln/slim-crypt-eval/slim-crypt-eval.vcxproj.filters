@@ -1,33 +1,114 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="..\..\..\slim-crypt-library\src\aes\aes.c" />
-    <ClCompile Include="..\..\..\slim-crypt-library\src\aes\data\aes_data.c" />
-    <ClCompile Include="..\..\..\slim-crypt-library\src\blowfish\blowfish.c" />
-    <ClCompile Include="..\..\..\slim-crypt-library\src\blowfish\data\blowfish_data.c" />
-    <ClCompile Include="..\..\..\slim-crypt-library\src\des\data\des_data.c" />
-    <ClCompile Include="..\..\..\slim-crypt-library\src\des\des.c" />
-    <ClCompile Include="..\..\..\slim-crypt-library\src\sha1\data\sha1_data.c" />
-    <ClCompile Include="..\..\..\slim-crypt-library\src\sha1\sha1.c" />
-    <ClCompile Include="..\..\..\slim-crypt-library\src\tea\tea.c" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="SerialPort.cpp" />
+    <ClCompile Include="SerialPort.cpp">
+      <Filter>SerialPort</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\slim-crypt-library\src\algorithms\aes\aes.c">
+      <Filter>Encryption\AES</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\slim-crypt-library\src\algorithms\des\des.c">
+      <Filter>Encryption\DES</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\slim-crypt-library\src\algorithms\blowfish\blowfish.c">
+      <Filter>Encryption\Blowfish</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\slim-crypt-library\src\algorithms\sha1\sha1.c">
+      <Filter>Encryption\SHA1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\slim-crypt-library\src\algorithms\tea\tea.c">
+      <Filter>Encryption\TEA</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\slim-crypt-library\src\algorithms\aes\data\aes_data.c">
+      <Filter>Encryption\AES\data</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\slim-crypt-library\src\algorithms\des\data\des_data.c">
+      <Filter>Encryption\DES\data</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\slim-crypt-library\src\algorithms\blowfish\data\blowfish_data.c">
+      <Filter>Encryption\Blowfish\data</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\slim-crypt-library\src\algorithms\sha1\data\sha1_data.c">
+      <Filter>Encryption\SHA1\data</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\slim-crypt-library\src\config\enc_config.c">
+      <Filter>Evaluation\config</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\slim-crypt-library\src\messages\message.c">
+      <Filter>Evaluation\messages</Filter>
+    </ClCompile>
+    <ClCompile Include="EvaluationProtocol.cpp">
+      <Filter>Evaluation\protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="evaluation.cpp">
+      <Filter>Evaluation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CommunicationFrameException.h" />
-    <ClInclude Include="CommunicationParityException.h" />
-    <ClInclude Include="PortConfigurationException.h" />
-    <ClInclude Include="PortUnavaliableException.h" />
-    <ClInclude Include="SerialPort.h" />
-    <ClInclude Include="..\..\..\slim-crypt-library\src\aes\aes.h" />
-    <ClInclude Include="..\..\..\slim-crypt-library\src\aes\data\aes_data.h" />
-    <ClInclude Include="..\..\..\slim-crypt-library\src\blowfish\blowfish.h" />
-    <ClInclude Include="..\..\..\slim-crypt-library\src\blowfish\data\blowfish_data.h" />
-    <ClInclude Include="..\..\..\slim-crypt-library\src\des\data\des_data.h" />
-    <ClInclude Include="..\..\..\slim-crypt-library\src\des\des.h" />
-    <ClInclude Include="..\..\..\slim-crypt-library\src\sha1\data\sha1_data.h" />
-    <ClInclude Include="..\..\..\slim-crypt-library\src\sha1\sha1.h" />
-    <ClInclude Include="..\..\..\slim-crypt-library\src\tea\tea.h" />
+    <ClInclude Include="CommunicationFrameException.h">
+      <Filter>SerialPort\Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="CommunicationParityException.h">
+      <Filter>SerialPort\Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="PortConfigurationException.h">
+      <Filter>SerialPort\Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="PortUnavaliableException.h">
+      <Filter>SerialPort\Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="SerialPort.h">
+      <Filter>SerialPort</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\slim-crypt-library\src\algorithms\aes\aes.h">
+      <Filter>Encryption\AES</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\slim-crypt-library\src\algorithms\des\des.h">
+      <Filter>Encryption\DES</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\slim-crypt-library\src\algorithms\blowfish\blowfish.h">
+      <Filter>Encryption\Blowfish</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\slim-crypt-library\src\algorithms\sha1\sha1.h">
+      <Filter>Encryption\SHA1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\slim-crypt-library\src\algorithms\tea\tea.h">
+      <Filter>Encryption\TEA</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\slim-crypt-library\src\algorithms\aes\data\aes_data.h">
+      <Filter>Encryption\AES\data</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\slim-crypt-library\src\algorithms\des\data\des_data.h">
+      <Filter>Encryption\DES\data</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\slim-crypt-library\src\algorithms\blowfish\data\blowfish_data.h">
+      <Filter>Encryption\Blowfish\data</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\slim-crypt-library\src\algorithms\sha1\data\sha1_data.h">
+      <Filter>Encryption\SHA1\data</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\slim-crypt-library\src\config\enc_config.h">
+      <Filter>Evaluation\config</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\slim-crypt-library\src\messages\data_message.h">
+      <Filter>Evaluation\messages</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\slim-crypt-library\src\messages\message.h">
+      <Filter>Evaluation\messages</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\slim-crypt-library\src\messages\request_message.h">
+      <Filter>Evaluation\messages</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\slim-crypt-library\src\messages\result_message.h">
+      <Filter>Evaluation\messages</Filter>
+    </ClInclude>
+    <ClInclude Include="EvaluationProtocol.h">
+      <Filter>Evaluation\protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="evaluation.h">
+      <Filter>Evaluation</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Encryption">
@@ -35,6 +116,48 @@
     </Filter>
     <Filter Include="SerialPort">
       <UniqueIdentifier>{7f36978a-b8f1-485c-be56-b47da346c1ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SerialPort\Exceptions">
+      <UniqueIdentifier>{2edff3b9-2362-46fd-acca-9a58fda03bf8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Encryption\AES">
+      <UniqueIdentifier>{de9e332c-4187-4a5b-8a4b-dbce939b47b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Encryption\DES">
+      <UniqueIdentifier>{4f4d1ebc-53d1-4876-bcfc-814777121180}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Encryption\TEA">
+      <UniqueIdentifier>{00cc71a5-c604-460a-bac3-d80922a87d0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Encryption\SHA1">
+      <UniqueIdentifier>{93740813-1243-4328-9022-63c82e2fc243}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Encryption\Blowfish">
+      <UniqueIdentifier>{10e5fbae-c86e-4a87-bae9-3a5106c31bea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Encryption\AES\data">
+      <UniqueIdentifier>{a76a5b98-82cb-4f4e-bcff-eb9d24f71e86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Encryption\DES\data">
+      <UniqueIdentifier>{5a33bd05-1285-4411-b442-bdd0e07f2a72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Encryption\Blowfish\data">
+      <UniqueIdentifier>{64ac2ce8-1d46-4aad-9b78-3700be4eb5dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Encryption\SHA1\data">
+      <UniqueIdentifier>{7786eb10-7da7-4f1f-a4ff-a37755cd6097}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Evaluation">
+      <UniqueIdentifier>{bd8cdcbd-6027-4c7b-8b0a-66f1b205f221}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Evaluation\config">
+      <UniqueIdentifier>{d715ea95-1406-478d-81dc-1bccef000e91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Evaluation\messages">
+      <UniqueIdentifier>{b8469b9f-6d05-4195-8dde-0225a448311b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Evaluation\protocol">
+      <UniqueIdentifier>{b136d064-c077-4844-8d9b-163e66f3af2b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

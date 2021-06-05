@@ -89,7 +89,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\micha\Documents\Repository\slim-crypt-library\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\micha\Documents\Repository\slim-crypt-library\slim-crypt-sln\slim-crypt-runner\evaluation\messages;C:\Users\micha\Documents\Repository\slim-crypt-library\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -141,35 +141,46 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\slim-crypt-library\src\aes\aes.c" />
-    <ClCompile Include="..\..\..\slim-crypt-library\src\aes\data\aes_data.c" />
-    <ClCompile Include="..\..\..\slim-crypt-library\src\blowfish\blowfish.c" />
-    <ClCompile Include="..\..\..\slim-crypt-library\src\blowfish\data\blowfish_data.c" />
-    <ClCompile Include="..\..\..\slim-crypt-library\src\des\data\des_data.c" />
-    <ClCompile Include="..\..\..\slim-crypt-library\src\des\des.c" />
-    <ClCompile Include="..\..\..\slim-crypt-library\src\sha1\data\sha1_data.c" />
-    <ClCompile Include="..\..\..\slim-crypt-library\src\sha1\sha1.c" />
-    <ClCompile Include="..\..\..\slim-crypt-library\src\tea\tea.c" />
+    <ClCompile Include="..\..\..\slim-crypt-library\src\algorithms\aes\aes.c" />
+    <ClCompile Include="..\..\..\slim-crypt-library\src\algorithms\aes\data\aes_data.c" />
+    <ClCompile Include="..\..\..\slim-crypt-library\src\algorithms\blowfish\blowfish.c" />
+    <ClCompile Include="..\..\..\slim-crypt-library\src\algorithms\blowfish\data\blowfish_data.c" />
+    <ClCompile Include="..\..\..\slim-crypt-library\src\config\enc_config.c" />
+    <ClCompile Include="..\..\..\slim-crypt-library\src\algorithms\des\data\des_data.c" />
+    <ClCompile Include="..\..\..\slim-crypt-library\src\algorithms\des\des.c" />
+    <ClCompile Include="..\..\..\slim-crypt-library\src\messages\message.c" />
+    <ClCompile Include="..\..\..\slim-crypt-library\src\algorithms\sha1\data\sha1_data.c" />
+    <ClCompile Include="..\..\..\slim-crypt-library\src\algorithms\sha1\sha1.c" />
+    <ClCompile Include="..\..\..\slim-crypt-library\src\algorithms\tea\tea.c" />
+    <ClCompile Include="evaluation.cpp" />
+    <ClCompile Include="EvaluationProtocol.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="SerialPort.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\slim-crypt-library\src\config\enc_config.h" />
+    <ClInclude Include="..\..\..\slim-crypt-library\src\messages\data_message.h" />
+    <ClInclude Include="..\..\..\slim-crypt-library\src\messages\message.h" />
+    <ClInclude Include="..\..\..\slim-crypt-library\src\messages\request_message.h" />
+    <ClInclude Include="..\..\..\slim-crypt-library\src\messages\result_message.h" />
     <ClInclude Include="CommunicationFrameException.h" />
     <ClInclude Include="CommunicationParityException.h" />
+    <ClInclude Include="evaluation.h" />
+    <ClInclude Include="EvaluationProtocol.h" />
     <ClInclude Include="PortConfigurationException.h" />
     <ClInclude Include="PortUnavaliableException.h" />
     <ClInclude Include="SerialPort.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\slim-crypt-library\src\aes\aes.h" />
-    <ClInclude Include="..\..\..\slim-crypt-library\src\aes\data\aes_data.h" />
-    <ClInclude Include="..\..\..\slim-crypt-library\src\blowfish\blowfish.h" />
-    <ClInclude Include="..\..\..\slim-crypt-library\src\blowfish\data\blowfish_data.h" />
-    <ClInclude Include="..\..\..\slim-crypt-library\src\des\data\des_data.h" />
-    <ClInclude Include="..\..\..\slim-crypt-library\src\des\des.h" />
-    <ClInclude Include="..\..\..\slim-crypt-library\src\sha1\data\sha1_data.h" />
-    <ClInclude Include="..\..\..\slim-crypt-library\src\sha1\sha1.h" />
-    <ClInclude Include="..\..\..\slim-crypt-library\src\tea\tea.h" />
+    <ClInclude Include="..\..\..\slim-crypt-library\src\algorithms\aes\aes.h" />
+    <ClInclude Include="..\..\..\slim-crypt-library\src\algorithms\aes\data\aes_data.h" />
+    <ClInclude Include="..\..\..\slim-crypt-library\src\algorithms\blowfish\blowfish.h" />
+    <ClInclude Include="..\..\..\slim-crypt-library\src\algorithms\blowfish\data\blowfish_data.h" />
+    <ClInclude Include="..\..\..\slim-crypt-library\src\algorithms\des\data\des_data.h" />
+    <ClInclude Include="..\..\..\slim-crypt-library\src\algorithms\des\des.h" />
+    <ClInclude Include="..\..\..\slim-crypt-library\src\algorithms\sha1\data\sha1_data.h" />
+    <ClInclude Include="..\..\..\slim-crypt-library\src\algorithms\sha1\sha1.h" />
+    <ClInclude Include="..\..\..\slim-crypt-library\src\algorithms\tea\tea.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
