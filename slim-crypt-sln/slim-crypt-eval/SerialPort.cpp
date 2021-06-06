@@ -11,10 +11,10 @@ SerialPort::SerialPort(std::string portName, Baudrate baudrate, Frame frameForma
 	COMPortConfiguration.BaudRate = (DWORD)baudrate;
 	COMPortConfiguration.ByteSize = GET_BYTE_SIZE(frameFormat);
 	COMPortConfiguration.StopBits = GET_STOP_BIT(frameFormat);
-	COMPortConfiguration.Parity = GET_PARITY_BIT(frameFormat);
+	COMPortConfiguration.Parity = 2;//GET_PARITY_BIT(frameFormat);
 
-	//COMPortConfiguration.fParity = TRUE;
-	//COMPortConfiguration.fAbortOnError = TRUE;
+	COMPortConfiguration.fParity = TRUE;
+	COMPortConfiguration.fAbortOnError = TRUE;
 
 	if (!SetCommState(hCOMPort, &COMPortConfiguration)) throw PortConfigurationException();
 

@@ -148,7 +148,6 @@
     <ClCompile Include="..\..\..\slim-crypt-library\src\config\enc_config.c" />
     <ClCompile Include="..\..\..\slim-crypt-library\src\algorithms\des\data\des_data.c" />
     <ClCompile Include="..\..\..\slim-crypt-library\src\algorithms\des\des.c" />
-    <ClCompile Include="..\..\..\slim-crypt-library\src\messages\message.c" />
     <ClCompile Include="..\..\..\slim-crypt-library\src\algorithms\sha1\data\sha1_data.c" />
     <ClCompile Include="..\..\..\slim-crypt-library\src\algorithms\sha1\sha1.c" />
     <ClCompile Include="..\..\..\slim-crypt-library\src\algorithms\tea\tea.c" />
@@ -160,7 +159,6 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\slim-crypt-library\src\config\enc_config.h" />
     <ClInclude Include="..\..\..\slim-crypt-library\src\messages\data_message.h" />
-    <ClInclude Include="..\..\..\slim-crypt-library\src\messages\message.h" />
     <ClInclude Include="..\..\..\slim-crypt-library\src\messages\request_message.h" />
     <ClInclude Include="..\..\..\slim-crypt-library\src\messages\result_message.h" />
     <ClInclude Include="CommunicationFrameException.h" />

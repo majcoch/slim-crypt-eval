@@ -1,0 +1,5 @@
+Algorithm;Encryption [cycles];Decryption [cycles]
+AES;-;242671
+DES;2765110;2766390
+TEA;396774;402174
+BLOWFISH;206675;-

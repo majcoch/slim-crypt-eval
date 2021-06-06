@@ -35,9 +35,6 @@
     <ClCompile Include="..\..\..\slim-crypt-library\src\config\enc_config.c">
       <Filter>Evaluation\config</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\slim-crypt-library\src\messages\message.c">
-      <Filter>Evaluation\messages</Filter>
-    </ClCompile>
     <ClCompile Include="EvaluationProtocol.cpp">
       <Filter>Evaluation\protocol</Filter>
     </ClCompile>
@@ -92,9 +89,6 @@
       <Filter>Evaluation\config</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\slim-crypt-library\src\messages\data_message.h">
-      <Filter>Evaluation\messages</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\slim-crypt-library\src\messages\message.h">
       <Filter>Evaluation\messages</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\slim-crypt-library\src\messages\request_message.h">
