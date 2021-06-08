@@ -158,9 +158,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\slim-crypt-library\src\config\enc_config.h" />
-    <ClInclude Include="..\..\..\slim-crypt-library\src\messages\data_message.h" />
-    <ClInclude Include="..\..\..\slim-crypt-library\src\messages\request_message.h" />
-    <ClInclude Include="..\..\..\slim-crypt-library\src\messages\result_message.h" />
+    <ClInclude Include="..\..\..\slim-crypt-library\src\messages\commands.h" />
+    <ClInclude Include="..\..\..\slim-crypt-library\src\messages\data_transfers.h" />
+    <ClInclude Include="..\..\..\slim-crypt-library\src\messages\message_id.h" />
+    <ClInclude Include="..\..\..\slim-crypt-library\src\messages\responses.h" />
     <ClInclude Include="CommunicationFrameException.h" />
     <ClInclude Include="CommunicationParityException.h" />
     <ClInclude Include="evaluation.h" />

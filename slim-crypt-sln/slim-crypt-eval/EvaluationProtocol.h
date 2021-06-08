@@ -1,15 +1,9 @@
 #pragma once
 #include "SerialPort.h"
-#include "messages/data_message.h"
-#include "messages/request_message.h"
-#include "messages/result_message.h"
-
-typedef enum {
-	INVALID = 0x00,
-	DATA_MSG = 0x01,
-	REQU_MSG = 0x02,
-	RESP_MSG = 0x03
-} message_id;
+#include "messages/message_id.h"
+#include "messages/commands.h"
+#include "messages/responses.h"
+#include "messages/data_transfers.h"
 
 class EvaluationProtocol {
 private:
@@ -26,4 +20,3 @@ public:
 
 	void get_message(void* msg);
 };
-

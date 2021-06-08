@@ -1,161 +1,211 @@
 #include "evaluation.h"
 
-#include <tuple>
 #include <fstream>
 #include "config/enc_config.h"
 
-std::tuple<data_message_t, result_message_t>
-evaluate_algorithm(EvaluationProtocol& eval, encryption_algorithm alg, encryption_operation oper) {
-	message_id id = (message_id)0; // Set msg id to invalid value
-
-	// Evalueate encryption
-	request_message_t enc_req = { alg, oper };
-	eval.send_message(&enc_req, message_id::REQU_MSG, REQU_MSG_SIZE);
-
-	// Get encryption results
-	id = eval.await_message();
-	data_message_t enc_data = { 0 };
-	eval.get_message(&enc_data);
-
-	// Get measurement
-	id = eval.await_message();
-	result_message_t enc_measure = { 0 };
-	eval.get_message(&enc_measure);
-
-	return std::make_tuple(enc_data, enc_measure);
+void device_send_data(EvaluationProtocol& eval, data_transfer_m& data_msg) {
+	eval.send_message(&data_msg, message_id::DATA_TRANSFER, DATA_TRANSFER_SIZE(data_msg.data_len));
 }
 
-void evaluate_aes_algorithm(EvaluationProtocol& eval, data_message_t& msg, std::ofstream& out) {
-	//aes_128_context_t aes = { { 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16 }, { 0 } };
-	data_message_t tmp_msg = msg;
+bool device_execute_algorithm(EvaluationProtocol& eval, algorithm_e alg, operation_e oper) {
+	message_id id = message_id::INVALID;
+	execute_algorithm_cmd_m exe_alg_cmd = { alg, oper };
+	execution_status_m exe_status_msg = { 0 };
+
+	// Request algorithm execution
+	eval.send_message(&exe_alg_cmd, message_id::EXEC_ALGO_CMD, EXEC_ALGO_CMD_SIZE);
+
+	// Get execution completeness status
+	id = eval.await_message();
+	eval.get_message(&exe_status_msg);
+
+	return exe_status_msg.status;
+}
+
+data_transfer_m device_get_data(EvaluationProtocol& eval) {
+	message_id id = message_id::INVALID;
+	send_data_cmd_m send_data_cmd;
+	data_transfer_m data_transfer_msg = { 0 };
+
+	// Request data after algorithm executed
+	eval.send_message(&send_data_cmd, message_id::SEND_DATA_CMD, 0);
+
+	id = eval.await_message();
+	eval.get_message(&data_transfer_msg);
+
+	return data_transfer_msg;
+}
+
+count_result_m device_get_measurement(EvaluationProtocol& eval) {
+	message_id id = message_id::INVALID;
+	send_count_cmd_m send_count_cmd;
+	count_result_m count_result_msg = { 0 };
+
+	// Request execution measurement data
+	eval.send_message(&send_count_cmd, message_id::SEND_CNT_CMD, 0);
+
+	id = eval.await_message();
+	eval.get_message(&count_result_msg);
+
+	return count_result_msg;
+}
+
+bool validate_data(EvaluationProtocol& eval, data_transfer_m& expected_data) {
+	const int retry_max = 2;
+	bool comparison_result = false;
+	data_transfer_m device_data = { 0 };
+
+	int retry_cnt = 0;
+	while ( (!comparison_result) && (retry_cnt++ < retry_max)) {
+		device_data = device_get_data(eval);
+		comparison_result = !memcmp(expected_data.data_buff, device_data.data_buff, expected_data.data_len * sizeof(uint8_t));
+	}
+
+	return comparison_result;
+}
+
+bool evaluate_aes_algorithm(EvaluationProtocol& eval, data_transfer_m data_msg, std::ofstream& out) {
+	count_result_m	enc_measure = { 0 };
+	count_result_m	dec_measure = { 0 };
+	bool enc_result = false;
+	bool dec_result = false;
+
 	aes_128_init(&aes);
 
-	std::tuple<data_message_t, result_message_t> enc_res;
-	std::tuple<data_message_t, result_message_t> dec_res;
+	// Prepare - send data to be encrypted to the device
+	device_send_data(eval, data_msg);
 
+	// Evaluate encryption
+	if (device_execute_algorithm(eval, algorithm_e::AES, operation_e::ENCRYPTION)) {
+		aes_128_encrypt(&aes, data_msg.data_buff, data_msg.data_len);
+		enc_result = validate_data(eval, data_msg);
+		if (enc_result) {
+			enc_measure = device_get_measurement(eval);
+		}
+	}
+	
+	// Evaluate decryption
+	if (device_execute_algorithm(eval, algorithm_e::AES, operation_e::DECRYPTION)) {
+		aes_128_decrypt(&aes, data_msg.data_buff, data_msg.data_len);
+		dec_result = validate_data(eval, data_msg);
+		if (dec_result) {
+			dec_measure = device_get_measurement(eval);
+		}
+	}
+	
+	//Save results to file
+	out << "AES;"
+		<< (enc_result ? std::to_string(enc_measure.count) : "-") << ";"
+		<< (dec_result ? std::to_string(dec_measure.count) : "-") << std::endl;
+
+	return enc_result && dec_result;
+}
+
+bool evaluate_des_algorithm(EvaluationProtocol& eval, data_transfer_m& data_msg, std::ofstream& out) {
+	count_result_m	enc_measure = { 0 };
+	count_result_m	dec_measure = { 0 };
 	bool enc_result = false;
 	bool dec_result = false;
 
-	// Prepare - send data to be encrypted to the device
-	eval.send_message(&msg, message_id::DATA_MSG, DATA_MSG_SIZE(msg.data_len));
-
-	// Evaluate encryption
-	enc_res = evaluate_algorithm(eval,
-		encryption_algorithm::AES, encryption_operation::ENCRYPT);
-	// Validate results
-	aes_128_encrypt(&aes, tmp_msg.data_buff, tmp_msg.data_len);
-	enc_result = !memcmp(tmp_msg.data_buff, std::get<0>(enc_res).data_buff, tmp_msg.data_len * sizeof(uint8_t));
-
-	// Evaluate decryption
-	dec_res = evaluate_algorithm(eval,
-		encryption_algorithm::AES, encryption_operation::DECRYPT);
-	// Validate results
-	aes_128_decrypt(&aes, tmp_msg.data_buff, tmp_msg.data_len);
-	dec_result = !memcmp(tmp_msg.data_buff, std::get<0>(dec_res).data_buff, tmp_msg.data_len * sizeof(uint8_t));
-
-	// Save results to file
-	out << "AES;"
-		<< (enc_result ? std::to_string(std::get<1>(enc_res).cycle_count) : "-") << ";"
-		<< (dec_result ? std::to_string(std::get<1>(dec_res).cycle_count) : "-") << std::endl;
-}
-
-void evaluate_des_algorithm(EvaluationProtocol& eval, data_message_t& msg, std::ofstream& out) {
-	//des_context_t des = { 0xAABB09182736CCDD, {0} };
-	data_message_t tmp_msg = msg;
 	des_init(&des);
 
-	std::tuple<data_message_t, result_message_t> enc_res;
-	std::tuple<data_message_t, result_message_t> dec_res;
-
-	bool enc_result = false;
-	bool dec_result = false;
-
 	// Prepare - send data to be encrypted to the device
-	eval.send_message(&msg, message_id::DATA_MSG, DATA_MSG_SIZE(msg.data_len));
+	device_send_data(eval, data_msg);
 
 	// Evaluate encryption
-	enc_res = evaluate_algorithm(eval,
-		encryption_algorithm::DES, encryption_operation::ENCRYPT);
-	// Validate results
-	des_encrypt(&des, tmp_msg.data_buff, tmp_msg.data_len);
-	enc_result = !memcmp(tmp_msg.data_buff, std::get<0>(enc_res).data_buff, tmp_msg.data_len * sizeof(uint8_t));
+	if (device_execute_algorithm(eval, algorithm_e::DES, operation_e::ENCRYPTION)) {
+		des_encrypt(&des, data_msg.data_buff, data_msg.data_len);
+		enc_result = validate_data(eval, data_msg);
+		if (enc_result) {
+			enc_measure = device_get_measurement(eval);
+		}
+	}
 
 	// Evaluate decryption
-	dec_res = evaluate_algorithm(eval,
-		encryption_algorithm::DES, encryption_operation::DECRYPT);
-	// Validate results
-	des_decrypt(&des, tmp_msg.data_buff, tmp_msg.data_len);
-	dec_result = !memcmp(tmp_msg.data_buff, std::get<0>(dec_res).data_buff, tmp_msg.data_len * sizeof(uint8_t));
+	if (device_execute_algorithm(eval, algorithm_e::DES, operation_e::DECRYPTION)) {
+		des_decrypt(&des, data_msg.data_buff, data_msg.data_len);
+		dec_result = validate_data(eval, data_msg);
+		if (dec_result) {
+			dec_measure = device_get_measurement(eval);
+		}
+	}
 
-	// Save results to file
+	//Save results to file
 	out << "DES;"
-		<< (enc_result ? std::to_string(std::get<1>(enc_res).cycle_count) : "-") << ";"
-		<< (dec_result ? std::to_string(std::get<1>(dec_res).cycle_count) : "-") << std::endl;
+		<< (enc_result ? std::to_string(enc_measure.count) : "-") << ";"
+		<< (dec_result ? std::to_string(dec_measure.count) : "-") << std::endl;
+
+	return enc_result && dec_result;
 }
 
-void evaluate_tea_algorithm(EvaluationProtocol& eval, data_message_t& msg, std::ofstream& out) {
-	//tea_context_t tea = { {0x12, 0x65, 0x22, 0x55} };
-	data_message_t tmp_msg = msg;
-
-	std::tuple<data_message_t, result_message_t> enc_res;
-	std::tuple<data_message_t, result_message_t> dec_res;
-
+bool evaluate_tea_algorithm(EvaluationProtocol& eval, data_transfer_m& data_msg, std::ofstream& out) {
+	count_result_m	enc_measure = { 0 };
+	count_result_m	dec_measure = { 0 };
 	bool enc_result = false;
 	bool dec_result = false;
-	
+
 	// Prepare - send data to be encrypted to the device
-	eval.send_message(&msg, message_id::DATA_MSG, DATA_MSG_SIZE(msg.data_len));
+	device_send_data(eval, data_msg);
 
 	// Evaluate encryption
-	enc_res = evaluate_algorithm(eval,
-		encryption_algorithm::TEA, encryption_operation::ENCRYPT);
-	// Validate results
-	tea_encrypt(&tea, tmp_msg.data_buff, tmp_msg.data_len);
-	enc_result = !memcmp(tmp_msg.data_buff, std::get<0>(enc_res).data_buff, tmp_msg.data_len * sizeof(uint8_t));
+	if (device_execute_algorithm(eval, algorithm_e::TEA, operation_e::ENCRYPTION)) {
+		tea_encrypt(&tea, data_msg.data_buff, data_msg.data_len);
+		enc_result = validate_data(eval, data_msg);
+		if (enc_result) {
+			enc_measure = device_get_measurement(eval);
+		}
+	}
 
 	// Evaluate decryption
-	dec_res = evaluate_algorithm(eval,
-		encryption_algorithm::TEA, encryption_operation::DECRYPT);
+	if (device_execute_algorithm(eval, algorithm_e::TEA, operation_e::DECRYPTION)) {
+		tea_decrypt(&tea, data_msg.data_buff, data_msg.data_len);
+		dec_result = validate_data(eval, data_msg);
+		if (dec_result) {
+			dec_measure = device_get_measurement(eval);
+		}
+	}
 
-	// Validate results
-	tea_decrypt(&tea, tmp_msg.data_buff, tmp_msg.data_len);
-	dec_result = !memcmp(tmp_msg.data_buff, std::get<0>(dec_res).data_buff, tmp_msg.data_len * sizeof(uint8_t));
-
-	// Save results to file
+	//Save results to file
 	out << "TEA;"
-		<< (enc_result ? std::to_string(std::get<1>(enc_res).cycle_count) : "-") << ";"
-		<< (dec_result ? std::to_string(std::get<1>(dec_res).cycle_count) : "-") << std::endl;
+		<< (enc_result ? std::to_string(enc_measure.count) : "-") << ";"
+		<< (dec_result ? std::to_string(dec_measure.count) : "-") << std::endl;
+
+	return enc_result && dec_result;
 }
 
-void evaluate_blowfish_algorithm(EvaluationProtocol& eval, data_message_t& msg, std::ofstream& out) {
-	data_message_t tmp_msg = msg;
+bool evaluate_blowfish_algorithm(EvaluationProtocol& eval, data_transfer_m& data_msg, std::ofstream& out) {
+	count_result_m	enc_measure = { 0 };
+	count_result_m	dec_measure = { 0 };
+	bool enc_result = false;
+	bool dec_result = false;
+
 	//blowfish_init(key, 2);
 
-	std::tuple<data_message_t, result_message_t> enc_res;
-	std::tuple<data_message_t, result_message_t> dec_res;
-
-	bool enc_result = false;
-	bool dec_result = false;
-	
 	// Prepare - send data to be encrypted to the device
-	eval.send_message(&msg, message_id::DATA_MSG, DATA_MSG_SIZE(msg.data_len));
+	device_send_data(eval, data_msg);
 
 	// Evaluate encryption
-	enc_res = evaluate_algorithm(eval,
-		encryption_algorithm::BLOWFISH, encryption_operation::ENCRYPT);
-	// Validate results
-	blowfish_encrypt(tmp_msg.data_buff, tmp_msg.data_len);
-	enc_result = !memcmp(tmp_msg.data_buff, std::get<0>(enc_res).data_buff, tmp_msg.data_len * sizeof(uint8_t));
+	if (device_execute_algorithm(eval, algorithm_e::BLOWFISH, operation_e::ENCRYPTION)) {
+		blowfish_encrypt(data_msg.data_buff, data_msg.data_len);
+		enc_result = validate_data(eval, data_msg);
+		if (enc_result) {
+			enc_measure = device_get_measurement(eval);
+		}
+	}
 
 	// Evaluate decryption
-	dec_res = evaluate_algorithm(eval,
-		encryption_algorithm::BLOWFISH, encryption_operation::DECRYPT);
-	// Validate results
-	blowfish_decrypt(tmp_msg.data_buff, tmp_msg.data_len);
-	dec_result = !memcmp(tmp_msg.data_buff, std::get<0>(dec_res).data_buff, tmp_msg.data_len * sizeof(uint8_t));
+	if (device_execute_algorithm(eval, algorithm_e::BLOWFISH, operation_e::DECRYPTION)) {
+		blowfish_decrypt(data_msg.data_buff, data_msg.data_len);
+		dec_result = validate_data(eval, data_msg);
+		if (dec_result) {
+			dec_measure = device_get_measurement(eval);
+		}
+	}
 
-	// Save results to file
+	//Save results to file
 	out << "BLOWFISH;"
-		<< (enc_result ? std::to_string(std::get<1>(enc_res).cycle_count) : "-") << ";"
-		<< (dec_result ? std::to_string(std::get<1>(dec_res).cycle_count) : "-") << std::endl;
+		<< (enc_result ? std::to_string(enc_measure.count) : "-") << ";"
+		<< (dec_result ? std::to_string(dec_measure.count) : "-") << std::endl;
+
+	return enc_result && dec_result;
 }

@@ -88,20 +88,23 @@
     <ClInclude Include="..\..\..\slim-crypt-library\src\config\enc_config.h">
       <Filter>Evaluation\config</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\slim-crypt-library\src\messages\data_message.h">
-      <Filter>Evaluation\messages</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\slim-crypt-library\src\messages\request_message.h">
-      <Filter>Evaluation\messages</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\slim-crypt-library\src\messages\result_message.h">
-      <Filter>Evaluation\messages</Filter>
-    </ClInclude>
     <ClInclude Include="EvaluationProtocol.h">
       <Filter>Evaluation\protocol</Filter>
     </ClInclude>
     <ClInclude Include="evaluation.h">
       <Filter>Evaluation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\slim-crypt-library\src\messages\commands.h">
+      <Filter>Evaluation\messages</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\slim-crypt-library\src\messages\data_transfers.h">
+      <Filter>Evaluation\messages</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\slim-crypt-library\src\messages\message_id.h">
+      <Filter>Evaluation\messages</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\slim-crypt-library\src\messages\responses.h">
+      <Filter>Evaluation\messages</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
