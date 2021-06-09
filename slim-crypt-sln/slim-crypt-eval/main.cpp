@@ -25,13 +25,22 @@ int main(int argc, char* argv[]) {
 
 		for (size_t data_size = 32; data_size <= 512; data_size += 32) {
 			std::cout << "Evaluation with block size [" << data_size << "]" << std::endl;
+
 			data_transfer_m data_msg = { 0 };
 			data_msg.data_len = data_size;
 			generate_data(data_msg.data_buff, data_size);
+
 			std::ofstream result_file("results/results_" + std::to_string(data_size) + "_bytes.csv");
 			if (result_file.is_open()) {
+
 				// Print file header
 				result_file << "Algorithm;Encryption [cycles];Decryption [cycles]" << std::endl;
+
+				std::cout << "SHA evaluation started... ";
+				if (evaluate_sha1_algorithm(eval, data_msg, result_file)) {
+					std::cout << "evaluation completed!" << std::endl;
+				}
+				else std::cout << "error occured" << std::endl;
 
 				std::cout << "AES evaluation started... ";
 				if (evaluate_aes_algorithm(eval, data_msg, result_file)) {

@@ -29,9 +29,6 @@
     <ClCompile Include="..\..\..\slim-crypt-library\src\algorithms\blowfish\data\blowfish_data.c">
       <Filter>Encryption\Blowfish\data</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\slim-crypt-library\src\algorithms\sha1\data\sha1_data.c">
-      <Filter>Encryption\SHA1\data</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\slim-crypt-library\src\config\enc_config.c">
       <Filter>Evaluation\config</Filter>
     </ClCompile>
@@ -81,9 +78,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\slim-crypt-library\src\algorithms\blowfish\data\blowfish_data.h">
       <Filter>Encryption\Blowfish\data</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\slim-crypt-library\src\algorithms\sha1\data\sha1_data.h">
-      <Filter>Encryption\SHA1\data</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\slim-crypt-library\src\config\enc_config.h">
       <Filter>Evaluation\config</Filter>
@@ -140,9 +134,6 @@
     </Filter>
     <Filter Include="Encryption\Blowfish\data">
       <UniqueIdentifier>{64ac2ce8-1d46-4aad-9b78-3700be4eb5dc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Encryption\SHA1\data">
-      <UniqueIdentifier>{7786eb10-7da7-4f1f-a4ff-a37755cd6097}</UniqueIdentifier>
     </Filter>
     <Filter Include="Evaluation">
       <UniqueIdentifier>{bd8cdcbd-6027-4c7b-8b0a-66f1b205f221}</UniqueIdentifier>

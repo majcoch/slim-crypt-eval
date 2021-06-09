@@ -209,3 +209,33 @@ bool evaluate_blowfish_algorithm(EvaluationProtocol& eval, data_transfer_m& data
 
 	return enc_result && dec_result;
 }
+
+bool evaluate_sha1_algorithm(EvaluationProtocol& eval, data_transfer_m& data_msg, std::ofstream& out) {
+	count_result_m	hash_measure = { 0 };
+	bool hash_result = false;
+
+	// Prepare - send data to be hashed to the device
+	device_send_data(eval, data_msg);
+
+	// Evaluate hashing
+	if (device_execute_algorithm(eval, algorithm_e::SHA_1, operation_e::ENCRYPTION)) {
+
+		uint32_t hash[5] = { 0 };
+		sha1_hash(data_msg.data_buff, data_msg.data_len, hash);
+
+		data_transfer_m exp = { 0 };
+		memcpy(exp.data_buff, hash, 5 * sizeof(uint32_t));
+		exp.data_len = 5 * sizeof(uint32_t);
+
+		hash_result = validate_data(eval, exp);
+		if (hash_result) {
+			hash_measure = device_get_measurement(eval);
+		}
+	}
+
+	out << "SHA-1;"
+		<< (hash_result ? std::to_string(hash_measure.count) : "-") << ";"
+		<< "N/A" << std::endl;
+
+	return hash_result;
+}

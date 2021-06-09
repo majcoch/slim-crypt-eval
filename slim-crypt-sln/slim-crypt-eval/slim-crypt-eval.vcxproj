@@ -148,7 +148,6 @@
     <ClCompile Include="..\..\..\slim-crypt-library\src\config\enc_config.c" />
     <ClCompile Include="..\..\..\slim-crypt-library\src\algorithms\des\data\des_data.c" />
     <ClCompile Include="..\..\..\slim-crypt-library\src\algorithms\des\des.c" />
-    <ClCompile Include="..\..\..\slim-crypt-library\src\algorithms\sha1\data\sha1_data.c" />
     <ClCompile Include="..\..\..\slim-crypt-library\src\algorithms\sha1\sha1.c" />
     <ClCompile Include="..\..\..\slim-crypt-library\src\algorithms\tea\tea.c" />
     <ClCompile Include="evaluation.cpp" />
@@ -177,7 +176,6 @@
     <ClInclude Include="..\..\..\slim-crypt-library\src\algorithms\blowfish\data\blowfish_data.h" />
     <ClInclude Include="..\..\..\slim-crypt-library\src\algorithms\des\data\des_data.h" />
     <ClInclude Include="..\..\..\slim-crypt-library\src\algorithms\des\des.h" />
-    <ClInclude Include="..\..\..\slim-crypt-library\src\algorithms\sha1\data\sha1_data.h" />
     <ClInclude Include="..\..\..\slim-crypt-library\src\algorithms\sha1\sha1.h" />
     <ClInclude Include="..\..\..\slim-crypt-library\src\algorithms\tea\tea.h" />
   </ItemGroup>
