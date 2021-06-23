@@ -1,6 +1,0 @@
-Algorithm;Encryption [cycles];Decryption [cycles]
-SHA-1;88550;N/A
-AES;11375;24317
-DES;1953630;1953758
-TEA;39766;40306
-BLOWFISH;20739;20803
