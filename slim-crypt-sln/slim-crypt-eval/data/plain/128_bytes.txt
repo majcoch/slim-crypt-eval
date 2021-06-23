@@ -1,0 +1,1 @@
+Sample data size is 128-bytes. This is a simple plain data text file for encryption evaluation. Testing is in progress! Waiting.
